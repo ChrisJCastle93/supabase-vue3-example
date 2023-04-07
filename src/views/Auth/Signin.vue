@@ -3,11 +3,11 @@
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                 alt="Your Company" />
-            <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign up for your account</h2>
+            <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
             <p class="mt-2 text-center text-sm text-gray-600">
                 Or
                 {{ ' ' }}
-                <a href="/auth/signin" class="font-medium text-indigo-600 hover:text-indigo-500">sign in</a>
+                <a href="/auth/signup" class="font-medium text-indigo-600 hover:text-indigo-500">sign up</a>
             </p>
         </div>
 
@@ -34,7 +34,7 @@
                     <div>
                         <button type="submit" @click.prevent="submitForm"
                             class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"><span
-                                v-if="!isLoading">Sign Up</span>
+                                v-if="!isLoading">Sign In</span>
                             <svg v-else class="animate-spin w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
@@ -69,17 +69,15 @@ import { mapState, mapStores } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { ExclamationCircleIcon } from '@heroicons/vue/20/solid'
 
-
 export default {
-    name: 'Signup',
     components: {
         ExclamationCircleIcon,
     },
     data() {
         return {
             isLoading: false,
-            email: '',
-            password: '',
+            email: 'chrisjcastle93+12345@gmail.com',
+            password: 'dougal22',
         }
     },
     computed: {
@@ -89,7 +87,7 @@ export default {
     methods: {
         submitForm() {
             this.isLoading = true;
-            this.authStore.userSignup(this.email, this.password);
+            this.authStore.userSignin(this.email, this.password);
             this.isLoading = false;
         }
     },

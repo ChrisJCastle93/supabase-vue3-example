@@ -8,7 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@heroicons/vue": "^2.0.16",
+    "@headlessui/vue": "^1.7.12",
+    "@heroicons/vue": "^2.0.17",
     "@supabase/supabase-js": "^2.0.4",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
     "autoprefixer": "^10.4.14",
