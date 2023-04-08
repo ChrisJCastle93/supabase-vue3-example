@@ -30,6 +30,18 @@ class Service {
     getUser() {
         return this.supabase.auth.getUser();
     }
+
+    resetPassword(email) {
+        return this.supabase.auth.resetPasswordForEmail(email, {
+            redirectTo: 'localhost:5178/',
+        })
+    }
+
+    updatePassword(password) {
+        console.log("SERVICE UPDATING PW:", password)
+        return this.supabase.auth.updateUser({ password })
+
+    }
 }
 
 const SupabaseService = new Service(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);

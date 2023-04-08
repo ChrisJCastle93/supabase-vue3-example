@@ -1,6 +1,7 @@
 <template>
     <header class="absolute inset-x-0 top-0 z-50">
         <Banner />
+        <SessionBanner v-if="sessionMessage.message" />
         <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1">
                 <a href="#" class="-m-1.5 p-1.5">
@@ -20,11 +21,13 @@
                     class="text-sm font-semibold leading-6 text-gray-900">{{ item.name }}</a>
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                <a href="/auth/signin" class="text-sm font-semibold leading-6 text-gray-900">Sign in <span
+                <a v-if="!session" href="/auth/signin" class="text-sm font-semibold leading-6 text-gray-900">Sign in <span
+                        aria-hidden="true">&rarr;</span></a>
+                <a v-if="session" href="/auth/signout" class="text-sm font-semibold leading-6 text-gray-900">Sign out <span
                         aria-hidden="true">&rarr;</span></a>
             </div>
         </nav>
-        <Dialog as="div" class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
+        <DialogTW as="div" class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
             <div class="fixed inset-0 z-50" />
             <DialogPanel
                 class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
@@ -53,23 +56,41 @@
                     </div>
                 </div>
             </DialogPanel>
-        </Dialog>
+        </DialogTW>
     </header>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import { Dialog, DialogPanel } from '@headlessui/vue'
+<script>
+import { Dialog as DialogTW, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import Banner from '@/components/Banner/Banner.vue'
+import SessionBanner from '@/components/Banner/SessionBanner.vue'
+import { mapStores, mapState } from 'pinia'
+import { useAuthStore } from '@/stores/auth'
 
-
-const navigation = [
-    { name: 'Product', href: '#' },
-    { name: 'Features', href: '#' },
-    { name: 'Marketplace', href: '#' },
-    { name: 'Company', href: '#' },
-]
-
-const mobileMenuOpen = ref(false)
+export default {
+    components: {
+        Banner,
+        SessionBanner,
+        DialogTW,
+        DialogPanel,
+        Bars3Icon,
+        XMarkIcon,
+    },
+    data() {
+        return {
+            navigation: [
+                { name: 'Product', href: '#' },
+                { name: 'Features', href: '#' },
+                { name: 'Marketplace', href: '#' },
+                { name: 'Company', href: '#' },
+            ],
+            mobileMenuOpen: false,
+        }
+    },
+    computed: {
+        ...mapStores(useAuthStore),
+        ...mapState(useAuthStore, ['sessionMessage', 'session']),
+    },
+}
 </script>

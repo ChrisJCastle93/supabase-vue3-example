@@ -11,5 +11,13 @@
 <script setup>
 import Nav from "@/components/Nav/Nav.vue";
 import Footer from "@/components/Footer/Footer.vue";
+import { supabase } from '@/services/supabase'
+import { onBeforeMount } from 'vue'
+import router from "@/router/router";
 
+onBeforeMount(() => {
+  supabase.auth.onAuthStateChange((event) => {
+    if (event === "PASSWORD_RECOVERY") router.push('/auth/reset-password');
+  })
+});
 </script>

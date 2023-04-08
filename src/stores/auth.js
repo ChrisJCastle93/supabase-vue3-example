@@ -8,7 +8,10 @@ export const useAuthStore = defineStore("auth", {
     user: null,
     session: null,
     error: null,
-    sessionMessage: ''
+    sessionMessage: {
+      message: '',
+      type: ''
+    }
   }),
   actions: {
     setUser(userParam, sessionParam) {
@@ -23,10 +26,16 @@ export const useAuthStore = defineStore("auth", {
       }, 5000);
     },
 
-    setSessionMessage(msg) {
-      this.sessionMessage = msg
+    setSessionMessage(msg, type) {
+      this.sessionMessage = {
+        message: msg,
+        type
+      }
       setTimeout(() => {
-        this.setError(null);
+        this.sessionMessage = {
+          message: null,
+          type: null,
+        };
       }, 5000);
     },
 
@@ -68,10 +77,27 @@ export const useAuthStore = defineStore("auth", {
       const { error } = await SupabaseService.userSignout();
       this.session = null;
       this.user = null;
-      this.setSessionMessage('You have been signed out.')
-      if (error) console.log(error)
-      router.push('/')
+      if (error) {
+        this.setError(error);
+      } else {
+        this.setSessionMessage('You have been signed out.', 'success')
+        router.push('/')
+      }
     },
+
+    resetPassword(email) {
+      SupabaseService.resetPassword(email);
+    },
+
+    async updatePassword(password) {
+      const { error } = await SupabaseService.updatePassword(password);
+      if (error) {
+        this.setError(error);
+      } else {
+        this.setSessionMessage('Successfully updated password. You are logged in.', 'success')
+        router.push('/')
+      }
+    }
   }
 }
 );

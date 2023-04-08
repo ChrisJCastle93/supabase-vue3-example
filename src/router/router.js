@@ -3,6 +3,7 @@ import PageNotFound from '@/views/utils/PageNotFound.vue'
 import Signup from '@/views/Auth/Signup.vue'
 import Signout from '@/views/Auth/Signout.vue'
 import Signin from '@/views/Auth/Signin.vue'
+import ResetPassword from '@/views/Auth/ResetPassword.vue'
 import Protected from '@/views/Protected.vue'
 import { useAuthStore } from '@/stores/auth'
 
@@ -39,6 +40,12 @@ const routes = [
         component: Protected
     },
     {
+        path: '/auth/reset-password',
+        name: 'reset-password',
+        meta: { requiresAuth: true },
+        component: ResetPassword
+    },
+    {
         path: '/:pathMatch(.*)*',
         name: 'not-found',
         component: PageNotFound
@@ -53,10 +60,16 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
     const store = useAuthStore()
-    if (!store.session) await store.verifySession()
-    if (!store.user) await store.getUser()
-    if (to.meta.requiresAuth && !store.session) return '/auth/signin'
-    if (to.meta.preventIfLoggedIn && store.session) return '/'
+    if (to.meta.requiresAuth) {
+        if (!store.session) await store.verifySession()
+        if (!store.user) await store.getUser()
+        if (!store.session) return '/auth/signin'
+    }
+    if (to.meta.preventIfLoggedIn) {
+        if (!store.session) await store.verifySession()
+        if (!store.user) await store.getUser()
+        if (store.session) return '/'
+    }
 })
 
 export default router;
