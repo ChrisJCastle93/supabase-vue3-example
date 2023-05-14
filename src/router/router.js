@@ -45,11 +45,11 @@ const routes = [
 		meta: { requiresAuth: true },
 		component: ResetPassword,
 	},
-	{
-		path: '/:pathMatch(.*)*',
-		name: 'not-found',
-		component: PageNotFound,
-	},
+	// {
+	// 	path: '/:pathMatch(.*)*',
+	// 	name: 'not-found',
+	// 	component: PageNotFound,
+	// },
 ];
 
 const router = createRouter({
