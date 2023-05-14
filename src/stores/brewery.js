@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia'
-import BreweryService from '@/services/breweryService'
+import { defineStore } from 'pinia';
+import BreweryService from '@/services/breweryService';
 // import router from '@/router/router'
 
 export const useBreweryStore = defineStore('brewery', {
@@ -16,20 +16,18 @@ export const useBreweryStore = defineStore('brewery', {
 	}),
 	actions: {
 		async getBreweries() {
-			let { data, error } = await BreweryService.getBreweries()
-			console.log('DATA:', data)
-			console.log('ERROR:', error)
-			if (data.breweries) this.breweries = data.breweries
-			if (error && error.message) {
-				this.setError(error.message)
-			}
+			let { data, error } = await BreweryService.getBreweries();
+			console.log('DATA:', data);
+			console.log('ERROR:', error);
+			if (data) this.breweries = data.slice(0, data.length);
+			if (error && error.message) this.setError(error.message);
 		},
 
 		setError(errorParam) {
-			this.error = errorParam
+			this.error = errorParam;
 			setTimeout(() => {
-				this.setError(null)
-			}, 5000)
+				this.setError(null);
+			}, 5000);
 		},
 
 		// setSessionMessage(msg, type) {
@@ -106,4 +104,4 @@ export const useBreweryStore = defineStore('brewery', {
 		// 	}
 		// },
 	},
-})
+});

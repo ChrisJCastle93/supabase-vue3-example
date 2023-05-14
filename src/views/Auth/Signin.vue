@@ -164,9 +164,9 @@
 </template>
 
 <script>
-import { mapState, mapStores } from 'pinia'
-import { useAuthStore } from '@/stores/auth'
-import { ExclamationCircleIcon } from '@heroicons/vue/20/solid'
+import { mapState, mapStores } from 'pinia';
+import { useAuthStore } from '@/stores/auth';
+import { ExclamationCircleIcon } from '@heroicons/vue/20/solid';
 
 export default {
 	components: {
@@ -179,7 +179,7 @@ export default {
 			password: '',
 			resettingPassword: false,
 			successMessage: '',
-		}
+		};
 	},
 	computed: {
 		...mapStores(useAuthStore),
@@ -187,22 +187,22 @@ export default {
 	},
 	methods: {
 		submitForm() {
-			this.isLoading = true
-			this.authStore.verifyOtp(this.email, this.password)
-			this.isLoading = false
+			this.isLoading = true;
+			this.authStore.verifyOtp(this.email, this.password);
+			this.isLoading = false;
 		},
 		forgotPassword() {
-			this.resettingPassword = true
+			this.resettingPassword = true;
 		},
 		submitForgotPassword() {
-			this.isLoading = true
-			this.authStore.resetPassword(this.email)
+			this.isLoading = true;
+			this.authStore.resetPassword(this.email);
 			this.successMessage =
-				'Please check your email. We have sent you a link to reset your password'
-			this.isLoading = false
+				'Please check your email. We have sent you a link to reset your password';
+			this.isLoading = false;
 		},
 	},
-}
+};
 </script>
 
 <style lang="scss">

@@ -9,9 +9,9 @@ import { mapStores } from 'pinia'
 import { useBreweryStore } from '@/stores/brewery'
 
 export default {
-	name: 'Home',
+	name: 'Breweries',
 	mounted() {
-		this.breweryStore.fetchBreweries()
+		this.breweryStore.getBreweries()
 	},
 	computed: {
 		...mapStores(useBreweryStore),
