@@ -1,6 +1,6 @@
 import Home from '@/views/Home.vue'
 import Breweries from '@/views/Breweries.vue'
-import PageNotFound from '@/views/utils/PageNotFound.vue'
+// import PageNotFound from '@/views/utils/PageNotFound.vue'
 import Signup from '@/views/Auth/Signup.vue'
 import Signout from '@/views/Auth/Signout.vue'
 import ResetPassword from '@/views/Auth/ResetPassword.vue'
