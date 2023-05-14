@@ -11,7 +11,7 @@
 <script setup>
 import Nav from "@/components/Nav/Nav.vue";
 import Footer from "@/components/Footer/Footer.vue";
-import { supabase } from '@/services/supabase'
+import { supabase } from '@/services/supabaseService'
 import { onBeforeMount } from 'vue'
 import router from "@/router/router";
 
