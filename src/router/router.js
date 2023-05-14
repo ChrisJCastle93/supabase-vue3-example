@@ -3,7 +3,6 @@ import Breweries from '@/views/Breweries.vue'
 import PageNotFound from '@/views/utils/PageNotFound.vue'
 import Signup from '@/views/Auth/Signup.vue'
 import Signout from '@/views/Auth/Signout.vue'
-import Signin from '@/views/Auth/Signin.vue'
 import ResetPassword from '@/views/Auth/ResetPassword.vue'
 import Protected from '@/views/Protected.vue'
 import { useAuthStore } from '@/stores/auth'
@@ -19,6 +18,7 @@ const routes = [
 	{
 		path: '/breweries',
 		name: 'breweries',
+		// meta: { requiresAuth: true },
 		component: Breweries,
 	},
 	{
@@ -26,12 +26,6 @@ const routes = [
 		name: 'signup',
 		meta: { preventIfLoggedIn: true },
 		component: Signup,
-	},
-	{
-		path: '/auth/signin',
-		name: 'signin',
-		meta: { preventIfLoggedIn: true },
-		component: Signin,
 	},
 	{
 		path: '/auth/signout',
@@ -56,7 +50,7 @@ const routes = [
 		name: 'not-found',
 		component: PageNotFound,
 	},
-]
+];
 
 const router = createRouter({
     history: createWebHistory(),
